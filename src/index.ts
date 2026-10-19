@@ -1,9 +1,22 @@
 import { isSatteriProcessor, satteri } from "@astrojs/markdown-satteri";
 import type { AstroIntegration } from "astro";
+import type { MountOptions } from "pele/lazy";
 import { peleMdast } from "./satteri.js";
 
+type JsonValue = string | number | boolean | null | JsonValue[] | { [key: string]: JsonValue };
+
+/** Pele options that can be serialized from Astro's config to the browser. */
+export interface PeleOptions extends Omit<
+  MountOptions,
+  "measurer" | "icons" | "onRender" | "onError" | "sanitize" | "config" | "now"
+> {
+  config?: { [key: string]: JsonValue };
+  /** Reference time in milliseconds since the Unix epoch. */
+  now?: number;
+}
+
 /** Render Mermaid fences with Pele in the browser. */
-export default function pele(): AstroIntegration {
+export default function pele(options: PeleOptions = {}): AstroIntegration {
   const mdastPlugin = peleMdast();
 
   return {
@@ -27,7 +40,11 @@ export default function pele(): AstroIntegration {
           },
         });
 
-        injectScript("page", 'import "@aaron212/astro-pele/runtime";');
+        injectScript(
+          "page",
+          'import { initPele } from "@aaron212/astro-pele/runtime";\n' +
+            `initPele(${JSON.stringify(options).replaceAll("<", "\\u003c")});`,
+        );
       },
       "astro:config:done": ({ config }) => {
         const processor = config.markdown.processor;

@@ -48,6 +48,29 @@ display Pele's built-in error message; loading failures display a short error me
 
 Pele supports a subset of Mermaid; see its [compatibility documentation](https://pele.run/compatibility).
 
+### Options
+
+Pass Pele's rendering and mount options to the integration:
+
+```ts
+pele({
+  zoom: { controls: false, maxScale: 4 },
+  autoDirection: false,
+  fontSize: 18,
+  config: {
+    flowchart: { curve: "linear" },
+  },
+});
+```
+
+Options apply to all diagrams, including after client navigation. Calling `pele()` keeps Pele's defaults.
+The package exports the `PeleOptions` type. See Pele's [API documentation](https://pele.run/api#mount) for available
+options and defaults.
+
+Integration options must be JSON-serializable; `config` accepts JSON values, and `now` accepts a Unix timestamp in
+milliseconds. Function options (`measurer`, `icons`, `onRender`, `onError`, and `sanitize`) are available through the
+standalone client API below.
+
 ## Standalone Sätteri
 
 The `/satteri` entry point prepares diagram containers without Astro:
