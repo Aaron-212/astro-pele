@@ -12,6 +12,10 @@ export function mountPele(root: ParentNode = document, options?: MountOptions): 
     }
 
     const source = element.dataset.peleSource ?? "";
+    const mountOptions: MountOptions = {
+      ...options,
+      ...JSON.parse(element.dataset.peleOptions ?? "{}"),
+    };
     element.replaceChildren();
     element.setAttribute("aria-busy", "true");
     let disposed = false;
@@ -41,7 +45,7 @@ export function mountPele(root: ParentNode = document, options?: MountOptions): 
           return;
         }
         try {
-          diagram = mount(element, source, options);
+          diagram = mount(element, source, mountOptions);
         } finally {
           element.setAttribute("aria-busy", "false");
         }
@@ -52,7 +56,7 @@ export function mountPele(root: ParentNode = document, options?: MountOptions): 
         }
         element.textContent = "Unable to load this diagram.";
         element.setAttribute("aria-busy", "false");
-        options?.onError?.(error);
+        mountOptions.onError?.(error);
       },
     );
   }
