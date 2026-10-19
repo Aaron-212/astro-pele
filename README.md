@@ -1,9 +1,43 @@
 # @aaron212/astro-pele
 
 Render Mermaid diagrams with [Pele](https://pele.run/), Obsidian's Mermaid renderer, in Astro and Sätteri.
-Diagrams are rendered in the browser using [`pele/lazy`](https://pele.run/api#mount), loading diagram
+The Astro component renders SVG on the server without browser JavaScript. The Markdown integration renders
+diagrams in the browser using [`pele/lazy`](https://pele.run/api#mount), loading diagram
 types on demand, with responsive layout and Pele's default zoom controls. Until rendering completes, diagrams occupy a
-blank box rather than displaying Mermaid source. JavaScript is required to render diagrams.
+blank box rather than displaying Mermaid source. This browser integration requires JavaScript.
+
+## Astro component
+
+Install the package with `pnpm add @aaron212/astro-pele`, then import the component in an Astro page or MDX file:
+
+```astro
+---
+import Mermaid from "@aaron212/astro-pele/components/Mermaid.astro";
+---
+
+<Mermaid
+  code={`flowchart LR
+  A[Write Mermaid] --> B[Render with Pele]`}
+  fontSize={18}
+/>
+```
+
+You can also pass source through the default slot:
+
+```astro
+<Mermaid>{`sequenceDiagram
+  Alice->>Bob: Hello!`}</Mermaid>
+```
+
+The `code` prop takes precedence over the slot, including when empty. Slot text is HTML-decoded before rendering;
+prefer a string expression for Mermaid syntax containing arrows, angle brackets, or braces.
+
+The component accepts Pele's [`RenderOptions`](https://pele.run/api#renderoptions) as props and an optional `class`
+for its `.astro-pele` container.
+Each diagram receives a unique SVG ID prefix unless you provide `idPrefix`. Render errors propagate to Astro.
+No integration or Sätteri processor is required. The SVG works without browser JavaScript; automatic layout updates
+and zoom controls are provided by the browser integration below. For server rendering, use `fontFamily`, `fontSize`,
+and `maxWidth` to control label measurement and layout.
 
 ## Astro
 
@@ -115,8 +149,8 @@ Pele reads fonts from its container and supports CSS variables for theme colors.
 
 Use your site's own variable names. See Pele's [theming documentation](https://pele.run/theming) for the full list.
 
-The placeholder has no reserved height; Pele determines the height when it renders. Without JavaScript, the container
-remains blank.
+The browser integration's placeholder has no reserved height; Pele determines the height when it renders. Without
+JavaScript, that container remains blank. The Astro component includes the rendered SVG in the initial HTML.
 
 ## Development
 

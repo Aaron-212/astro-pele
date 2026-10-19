@@ -1,0 +1,21 @@
+---
+import { decodeHTML } from "entities";
+import { renderAsync, type RenderOptions } from "pele/lazy";
+
+export interface Props extends RenderOptions {
+  /** Mermaid source. Takes precedence over the default slot, including when empty. */
+  code?: string;
+  /** Additional classes for the diagram container. */
+  class?: string;
+}
+
+const { code, class: className, ...renderOptions } = Astro.props;
+// Slots render to HTML; decode escaped diagram text before passing it to Pele.
+const source = code ?? decodeHTML((await Astro.slots.render("default")) ?? "");
+const { svg } = await renderAsync(source, {
+  ...renderOptions,
+  idPrefix: renderOptions.idPrefix ?? `pele-${crypto.randomUUID()}-`,
+});
+---
+
+<div class:list={["astro-pele", className]} set:html={svg} />

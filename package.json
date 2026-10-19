@@ -15,7 +15,8 @@
     "url": "git+https://github.com/Aaron-212/astro-pele.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/components/*.astro"
   ],
   "type": "module",
   "exports": {
@@ -31,6 +32,7 @@
       "types": "./dist/runtime.d.ts",
       "import": "./dist/runtime.js"
     },
+    "./components/Mermaid.astro": "./src/components/Mermaid.astro",
     "./satteri": {
       "types": "./dist/satteri.d.ts",
       "import": "./dist/satteri.js"
@@ -38,16 +40,18 @@
   },
   "scripts": {
     "build": "tsc",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit && astro check --tsconfig tsconfig.astro.json",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "lint": "oxlint"
   },
   "dependencies": {
+    "entities": "^8.1.0",
     "pele": "^1.6.0",
     "satteri": "^0.10.5"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@astrojs/markdown-satteri": "^0.4.3",
     "astro": "^7.3.8",
     "oxfmt": "^0.73.0",
