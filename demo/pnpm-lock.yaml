@@ -169,9 +169,6 @@ importers:
       '@aaron212/astro-pele':
         specifier: link:..
         version: link:..
-      '@astrojs/markdown-satteri':
-        specifier: ^0.4.3
-        version: 0.4.4
       astro:
         specifier: ^7.3.8
         version: 7.4.0(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)

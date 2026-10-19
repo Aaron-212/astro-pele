@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@aaron212/astro-pele": "link:..",
-    "@astrojs/markdown-satteri": "^0.4.3",
     "astro": "^7.3.8"
   },
   "devDependencies": {

@@ -1,14 +1,11 @@
 # @aaron212/astro-pele
 
 Render Mermaid diagrams with [Pele](https://pele.run/), Obsidian's Mermaid renderer, in Astro and Sätteri.
-The Astro component and Markdown integration render
-diagrams in the browser using [`pele/lazy`](https://pele.run/api#mount), loading diagram
-types on demand, with responsive layout and Pele's default zoom controls. Until rendering completes, diagrams occupy a
-blank box rather than displaying Mermaid source. This browser integration requires JavaScript.
+Diagrams render in the browser, with diagram types loaded on demand. Browser JavaScript is required.
 
 ## Astro component
 
-Install the package with `pnpm add @aaron212/astro-pele`, then import the component in an Astro page or MDX file:
+Install the package with `pnpm add @aaron212/astro-pele`, then import the component in an .astro file:
 
 ```astro
 ---
@@ -32,31 +29,27 @@ You can also pass source through the default slot:
 The `code` prop takes precedence over the slot, including when empty. Slot text is HTML-decoded before rendering;
 prefer a string expression for Mermaid syntax containing arrows, angle brackets, or braces.
 
-The component accepts the JSON-serializable Pele mount options described below as props and an optional `class`
+The component accepts the JSON-serializable Pele mount options in Styling and Config as props and an optional `class`
 for its `.astro-pele` container. Component props override integration options for that diagram.
 No integration or Sätteri processor is required. The component bundles the browser mounting runtime automatically,
 including responsive layout, zoom controls, and cleanup during Astro client navigation.
 
-## Astro
+## Astro markdown
 
-Install the package in an Astro project:
+Astro 7 uses Sätteri by default, so no separate processor installation or configuration is needed.
+Install the package in your Astro project:
 
 ```sh
-pnpm add @aaron212/astro-pele @astrojs/markdown-satteri
+pnpm add @aaron212/astro-pele
 ```
 
-For local development before publication, build this package and install it using `pnpm add /path/to/astro-pele` instead.
 Configure `astro.config.ts`:
 
 ```ts
-import { satteri } from "@astrojs/markdown-satteri";
 import pele from "@aaron212/astro-pele";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  markdown: {
-    processor: satteri(),
-  },
   integrations: [pele()],
 });
 ```
@@ -80,30 +73,13 @@ display Pele's built-in error message; loading failures display a short error me
 
 Pele supports a subset of Mermaid; see its [compatibility documentation](https://pele.run/compatibility).
 
-### Options
+## Standalone Satteri
 
-Pass Pele's rendering and mount options to the integration:
+Install the integration and Sätteri directly when using its API without Astro:
 
-```ts
-pele({
-  zoom: { controls: false, maxScale: 4 },
-  autoDirection: false,
-  fontSize: 18,
-  config: {
-    flowchart: { curve: "linear" },
-  },
-});
+```sh
+pnpm add @aaron212/astro-pele satteri
 ```
-
-Options apply to all diagrams, including after client navigation. Calling `pele()` keeps Pele's defaults.
-The package exports the `PeleOptions` type. See Pele's [API documentation](https://pele.run/api#mount) for available
-options and defaults.
-
-Integration options must be JSON-serializable; `config` accepts JSON values, and `now` accepts a Unix timestamp in
-milliseconds. Function options (`measurer`, `icons`, `onRender`, `onError`, and `sanitize`) are available through the
-standalone client API below.
-
-## Standalone Sätteri
 
 The `/satteri` entry point prepares diagram containers without Astro:
 
@@ -133,7 +109,28 @@ It accepts Pele's `MountOptions`, including `zoom`, `onRender`, `onError`, and `
 inserted into the document. The cleanup function is available immediately, even while diagram types are loading.
 Cleanup cancels pending mounts, destroys completed mounts, and restores blank placeholders.
 
-## Styling
+## Styling and Config
+
+Pass Pele's rendering and mount options to the integration:
+
+```ts
+pele({
+  zoom: { controls: false, maxScale: 4 },
+  autoDirection: false,
+  fontSize: 18,
+  config: {
+    flowchart: { curve: "linear" },
+  },
+});
+```
+
+Options apply to all diagrams, including after client navigation. Calling `pele()` keeps Pele's defaults.
+The package exports the `PeleOptions` type. See Pele's [API documentation](https://pele.run/api#mount) for available
+options and defaults.
+
+Integration options must be JSON-serializable; `config` accepts JSON values, and `now` accepts a Unix timestamp in
+milliseconds. Function options (`measurer`, `icons`, `onRender`, `onError`, and `sanitize`) are available through the
+standalone client API above.
 
 Pele reads fonts from its container and supports CSS variables for theme colors. For example:
 
@@ -162,7 +159,3 @@ mise exec -- pnpm build
 ```
 
 `pnpm build` emits JavaScript and type declarations into `dist/`.
-
-The release workflow follows `astro-typlet`: pushing a `v*` tag validates and builds the package, then stages a public npm
-release. Configure npm trusted publishing for this repository's `publish.yml` workflow and its `npm` GitHub environment
-before releasing.
