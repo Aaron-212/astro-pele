@@ -1,0 +1,8 @@
+sequenceDiagram
+  participant Reader
+  participant Astro
+  participant Pele
+  Reader->>Astro: Open a page
+  Astro-->>Reader: Markdown + blank container
+  Reader->>Pele: Load diagram renderer
+  Pele-->>Reader: Interactive SVG

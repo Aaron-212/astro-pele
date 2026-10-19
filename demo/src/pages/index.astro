@@ -1,0 +1,103 @@
+---
+import Mermaid from "@aaron212/astro-pele/components/Mermaid.astro";
+import CodeBlock from "@/components/CodeBlock.astro";
+
+import Layout from "@/layouts/Layout.astro";
+import Flow from "@/examples/flow.mmd?raw";
+import Sequence from "@/examples/sequence.mmd?raw";
+import State from "@/examples/state.mmd?raw";
+const examples = [
+  {
+    number: "01",
+    type: "Flowchart",
+    source: Flow,
+  },
+  {
+    number: "02",
+    type: "Sequence diagram",
+    source: Sequence,
+  },
+  {
+    number: "03",
+    type: "State diagram",
+    source: State,
+  },
+];
+---
+
+<Layout class="py-4">
+  <div class="flex flex-col gap-4">
+    <h1 class="text-4xl font-semibold">Astro Pele integration demo</h1>
+    <div class="flex flex-row gap-4 flex-wrap text-lg">
+      <a class="" href="https://www.npmjs.com/package/@aaron212/astro-pele">
+        npm: @aaron212/astro-pele ↗
+      </a>
+      <a class="" href="https://github.com/Aaron-212/astro-pele">
+        GitHub: Aaron-212/astro-pele ↗
+      </a>
+    </div>
+    <p class="text-lg">
+      <a href="https://pele.run">Pele</a> is a Mermaid chart renderer that is faster and smaller than the default
+      Mermaid chart renderer, <a href="https://github.com/mermaid-js/mermaid">mermaid.js</a>.
+      <br />
+      This project provides an <a href="https://astro.build">Astro</a> integration for Pele.
+    </p>
+  </div>
+
+  <section id="collection" aria-labelledby="collection-title">
+    {examples.map(({ number, type, source }) => (
+      <article class="py-4">
+        <p class="text-md font-light tracking-wider uppercase tabular-nums">
+          {number}. {type}
+        </p>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 py-2">
+          <CodeBlock code={source.trim()} lang="mermaid" />
+          <div class="min-w-0 overflow-hidden bg-slate-100 dark:bg-slate-900 rounded-lg p-4">
+            <Mermaid code={source} class="size-full [&_svg.pele]:mx-auto" />
+            <noscript>
+              <p class="p-5">Enable JavaScript to render this Markdown diagram, or </p>
+            </noscript>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+  <hr />
+  <section class="py-4">
+    <h2 class="text-xl font-medium">How to use?</h2>
+    <div class="grid grid-cols-1 xl:grid-cols-[1fr_2fr] gap-x-4 gap-y-8 py-4">
+      <p>
+        Add the dependencies to your project.
+        <br />
+        Use any package manager you prefer.
+      </p>
+      <CodeBlock code={`npm add -D @aaron212/astro-pele\nnpm add pele`} lang="sh" />
+      <p>
+        Import the integration, and write a Mermaid code block within your markdown. That's it, and Pele takes it from
+        there.
+      </p>
+      <CodeBlock
+        lang="ts"
+        code={`// astro.config.ts
+import pele from "@aaron212/astro-pele";
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  integrations: [pele()],
+});`}
+      />
+      <p>Or use the Astro component if you're writing in .astro files.</p>
+      <CodeBlock
+        lang="astro"
+        code={`---
+import Mermaid from "@aaron212/astro-pele/components/Mermaid.astro";
+---
+
+<Mermaid code=\{\`flowchart LR
+  Hello --> World
+\`\} />
+`}
+      />
+    </div>
+  </section>
+</Layout>
