@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preinstall": "pnpm --dir .. install --frozen-lockfile --prod=false",
     "dev": "pnpm --dir .. build && astro dev",
     "build": "pnpm --dir .. build && astro build",
     "check": "pnpm --dir .. build && astro check",

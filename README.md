@@ -3,6 +3,8 @@
 Render Mermaid diagrams with [Pele](https://pele.run/), Obsidian's Mermaid renderer, in Astro and Sätteri.
 Diagrams render in the browser, with diagram types loaded on demand. Browser JavaScript is required.
 
+See the [demo site](http://demos.aaron212.com/astro-pele/).
+
 ## Astro component
 
 Install the package with `pnpm add @aaron212/astro-pele`, then import the component in an .astro file:
@@ -159,3 +161,15 @@ mise exec -- pnpm build
 ```
 
 `pnpm build` emits JavaScript and type declarations into `dist/`.
+
+To run the demo:
+
+```sh
+cd demo
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+The demo's install hook also installs the parent package's dependencies, including its build tools, from the root
+lockfile. CI can use `demo/` as its root directory with `pnpm install --frozen-lockfile` as the install command and
+`pnpm build` as the build command. The demo builds the parent package before starting Astro.
