@@ -1,7 +1,12 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import "@/styles/global.css";
-const path = Astro.url.pathname;
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -9,7 +14,7 @@ const path = Astro.url.pathname;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Astro Pele integration demo</title>
+    <title>{title}</title>
     <ClientRouter />
   </head>
   <body class="p-4 pb-8">

@@ -25,16 +25,12 @@ const examples = [
 ];
 ---
 
-<Layout class="py-4">
-  <div class="flex flex-col gap-4">
+<Layout title="Astro Pele integration demo">
+  <div class="flex flex-col gap-4 py-4">
     <h1 class="text-4xl font-semibold">Astro Pele integration demo</h1>
-    <div class="flex flex-row gap-4 flex-wrap text-lg">
-      <a class="" href="https://www.npmjs.com/package/@aaron212/astro-pele">
-        npm: @aaron212/astro-pele ↗
-      </a>
-      <a class="" href="https://github.com/Aaron-212/astro-pele">
-        GitHub: Aaron-212/astro-pele ↗
-      </a>
+    <div class="flex flex-row flex-wrap gap-4 text-lg">
+      <a href="https://www.npmjs.com/package/@aaron212/astro-pele">npm: @aaron212/astro-pele ↗</a>
+      <a href="https://github.com/Aaron-212/astro-pele">GitHub: Aaron-212/astro-pele ↗</a>
     </div>
     <p class="text-lg">
       <a href="https://pele.run">Pele</a> is a Mermaid chart renderer that is faster and smaller than the default
@@ -44,15 +40,15 @@ const examples = [
     </p>
   </div>
 
-  <section id="collection" aria-labelledby="collection-title">
+  <section aria-label="Mermaid examples">
     {examples.map(({ number, type, source }) => (
       <article class="py-4">
-        <p class="text-md font-light tracking-wider uppercase tabular-nums">
+        <h2 class="text-md font-light tracking-wider uppercase tabular-nums">
           {number}. {type}
-        </p>
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 py-2">
+        </h2>
+        <div class="grid grid-cols-1 gap-4 py-2 xl:grid-cols-2">
           <CodeBlock code={source.trim()} lang="mermaid" />
-          <div class="min-w-0 overflow-hidden bg-slate-100 dark:bg-slate-900 rounded-lg p-4">
+          <div class="min-w-0 overflow-hidden rounded-lg bg-slate-100 p-4 dark:bg-slate-900">
             <Mermaid code={source} class="size-full [&_svg.pele]:mx-auto" />
             <noscript>
               <p class="p-5">Enable JavaScript to render this Markdown diagram, or </p>
@@ -63,9 +59,11 @@ const examples = [
     ))}
   </section>
   <hr />
-  <section class="py-4">
-    <h2 class="text-xl font-medium">How to use?</h2>
-    <div class="grid grid-cols-1 xl:grid-cols-[1fr_2fr] gap-x-4 gap-y-8 py-4">
+  <section class="py-4" aria-labelledby="usage-title">
+    <h2 id="usage-title" class="text-xl font-medium">
+      How to use
+    </h2>
+    <div class="grid grid-cols-1 gap-x-4 gap-y-8 py-4 xl:grid-cols-[1fr_2fr]">
       <p>Add the dependency to your project.</p>
       <CodeBlock code={`pnpm add @aaron212/astro-pele`} lang="sh" />
       <p>

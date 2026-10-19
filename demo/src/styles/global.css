@@ -1,5 +1,4 @@
 @import "tailwindcss";
-/*@plugin "@tailwindcss/typography";*/
 
 .astro-code {
   min-width: 0;
@@ -52,7 +51,7 @@
     --pele-series-1: var(--color-blue-dark);
     --pele-series-2: var(--color-purple-dark);
     --pele-series-3: var(--color-teal-dark);
-    --pele-series-4: var(--color-oragne-dark);
+    --pele-series-4: var(--color-orange-dark);
     --pele-series-5: var(--color-green-dark);
     --pele-series-6: var(--color-pink-dark);
     --pele-series-7: var(--color-indigo-dark);
@@ -101,7 +100,7 @@
   --color-red-light: oklch(0.6541 0.2323 28.84);
   --color-red-dark: oklch(0.6633 0.2236 28.29);
   --color-orange-light: oklch(0.7652 0.1752 62.57);
-  --color-oragne-dark: oklch(0.7807 0.1712 66.67);
+  --color-orange-dark: oklch(0.7807 0.1712 66.67);
   --color-yellow-light: oklch(0.8652 0.1766 90.35);
   --color-yellow-dark: oklch(0.8859 0.1811 95.6);
   --color-green-light: oklch(0.7305 0.1941 147.37);
