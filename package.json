@@ -4,9 +4,11 @@
   "description": "Render Mermaid diagrams with Pele in Astro and Sätteri.",
   "keywords": [
     "astro",
+    "astro-integration",
     "markdown",
     "mermaid",
     "pele",
+    "renderer",
     "satteri"
   ],
   "homepage": "https://demos.aaron212.com/astro-pele/",
