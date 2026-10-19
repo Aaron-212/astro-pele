@@ -71,13 +71,7 @@
 
 :root {
   @apply bg-white text-black dark:bg-black dark:text-white;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    ui-sans,
-    "Segoe UI",
-    sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, ui-sans, "Segoe UI", sans-serif;
   text-autospace: normal;
 
   a {
