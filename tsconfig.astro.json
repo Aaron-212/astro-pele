@@ -1,7 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@aaron212/astro-pele/runtime": ["./src/runtime.ts"]
+    }
   },
   "include": ["src/components/**/*.astro"]
 }
