@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "entities": "^8.1.0",
-    "pele": "^1.6.0",
+    "pele": "^1.8.0",
     "satteri": "^0.10.5"
   },
   "devDependencies": {
