@@ -49,7 +49,7 @@
     "lint": "oxlint"
   },
   "dependencies": {
-    "entities": "^8.1.0",
+    "entities": "^9.0.0",
     "pele": "^1.8.0",
     "satteri": "^0.10.5"
   },
